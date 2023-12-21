@@ -63,24 +63,24 @@ footerJSON.columns.forEach(column => {
 // For Bottom-footer
 
 footerJSON.bottom.forEach(bottom => {
-    const img = bottom.img
-    const text = bottom.text
-
-
-
-    const misc = document.createElement('div')
-    misc.classList.add('misc')
-    footerBottom.appendChild(misc)
-
-    const image = document.createElement('img')
-    image.src = img;
-    misc.appendChild(image)
-
-    miscLink = document.createElement('a')
-    miscLink.href = "#"
+    const img = bottom.img;
+    const text = bottom.text;
+  
+    const misc = document.createElement('div');
+    misc.classList.add('misc');
+    footerBottom.appendChild(misc);
+  
+    // Check if the 'img' property exists and is not empty
+    if (img && img.trim() !== "") {
+      const image = document.createElement('img');
+      image.src = img;
+      misc.appendChild(image);
+    }
+  
+    const miscLink = document.createElement('a');
+    miscLink.href = "#";
     miscLink.textContent = text;
-    misc.appendChild(miscLink)
-
+    misc.appendChild(miscLink);
 
     
     }
