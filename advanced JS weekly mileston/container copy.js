@@ -1,13 +1,14 @@
 const formattedData = [];
 let selectedData = [];
 
+
 // Function to create divs
 function createDiv() {
   // Create a new div element
   var divElement = document.createElement("div");
   return divElement;
 }
-
+  
 const containerDiv = createDiv();
 containerDiv.classList.add("container");
 
@@ -29,30 +30,50 @@ const updateCompareCount = () => {
 
 // Fetching data for each product
 productJSON.forEach((product) => {
+  // Accessing properties of each product
   const title = product.title;
   const imageUrl = product.image.url;
+  const overallRating = product.ratings.overallRating;
+  const totalRatingsNum = product.ratings.totalRatingsNum;
+  const totalReviewsNum = product.ratings.totalReviewsNum;
   const featuresList = product.featuresList;
+  const freeDelivery = product.freeDelivery;
+  const mrp = product.price.mrp;
+  const finalPrice = product.price.finalPrice;
+  const discountType = product.price.discount.type;
+  const discountData = product.price.discount.data;
+  const exchangeOfferType = product.exchangeOfferDiscount.type;
+  const exchangeOfferData = product.exchangeOfferDiscount.data;
+  const bankOffersLink = product.bankOffersLink;
   const productPageLink = product.productPageLink.url;
   formattedData.push({ title, imageUrl });
 
-  const itemDiv = createDiv();
+  // Create a div element for each product
+  const itemDiv = document.createElement("div");
   itemDiv.classList.add("item");
+
+  // Append the itemDiv to the containerDiv
   containerDiv.appendChild(itemDiv);
 
-  const content = createDiv();
+  const content = document.createElement("div");
   content.classList.add("content");
   containerDiv.appendChild(content);
 
   content.appendChild(itemDiv);
 
+  // Create an img element for each product
   const img = document.createElement("img");
+
+  // Set the source (URL) for the image
   img.src = imageUrl;
   img.alt = product.image.alt;
   img.height = product.image.height;
   img.width = product.image.width;
+
+  // Append the imgElement to the itemDiv
   itemDiv.appendChild(img);
 
-  const description = createDiv();
+  const description = document.createElement("div");
   description.classList.add("description");
   itemDiv.appendChild(description);
 
@@ -64,12 +85,12 @@ productJSON.forEach((product) => {
 
   description.appendChild(descriptionTitle);
 
-  const ratingContainer = createDiv();
+  const ratingContainer = document.createElement("div");
   ratingContainer.classList.add("rate-container");
 
   description.appendChild(ratingContainer);
 
-  const rating = createDiv();
+  const rating = document.createElement("div");
   rating.classList.add("rating");
   rating.textContent = product.ratings.overallRating;
 
@@ -80,7 +101,7 @@ productJSON.forEach((product) => {
 
   rating.appendChild(grade);
 
-  const review = createDiv();
+  const review = document.createElement("div");
   review.classList.add("review");
   review.textContent =
     product.ratings.totalRatingsNum +
@@ -91,12 +112,15 @@ productJSON.forEach((product) => {
 
   ratingContainer.appendChild(review);
 
-  // feature list
-  const featureList = createDiv();
+  // Create a div element for the feature list
+  const featureList = document.createElement("div");
   featureList.classList.add("feature-list");
   description.appendChild(featureList);
 
+  // Create a ul element for the features
   const featuresUl = document.createElement("ul");
+
+  // Assuming you have the featuresList array from your JSON data
   featuresListUl = productJSON[0].featuresList;
 
   // Iterate through the featuresList and create li elements
@@ -106,18 +130,19 @@ productJSON.forEach((product) => {
     featuresUl.appendChild(liElement);
   });
 
+  // Append the ul element to the featureList div
   featureList.appendChild(featuresUl);
 
-  const PriceContainer = createDiv();
+  const PriceContainer = document.createElement("div");
   PriceContainer.classList.add("price-container");
   itemDiv.appendChild(PriceContainer);
 
-  const price = createDiv();
+  const price = document.createElement("div");
   price.classList.add("price");
   price.textContent = "Rs. " + product.price.finalPrice;
   PriceContainer.appendChild(price);
 
-  const maxPrice = createDiv();
+  const maxPrice = document.createElement("div");
   maxPrice.classList.add("max-price");
 
   const discount = document.createElement("span");
@@ -128,7 +153,7 @@ productJSON.forEach((product) => {
   maxPrice.appendChild(discount);
   PriceContainer.appendChild(maxPrice);
 
-  const delivery = createDiv();
+  const delivery = document.createElement("div");
   delivery.classList.add("free-delivery");
   PriceContainer.appendChild(delivery);
 
@@ -136,10 +161,10 @@ productJSON.forEach((product) => {
   if (product.freeDelivery) {
     delivery.textContent = "Free Delivery";
   } else {
-    delivery.textContent = "Standard Delivery";
+    delivery.textContent = "Standard Delivery"; // or any other text you want for false condition
   }
 
-  const exchangeOffer = createDiv();
+  const exchangeOffer = document.createElement("div");
   exchangeOffer.classList.add("exchange-offer");
   PriceContainer.appendChild(exchangeOffer);
 
@@ -152,7 +177,7 @@ productJSON.forEach((product) => {
   exchangeOffer.appendChild(exchangeSpan);
   exchangeOffer.insertAdjacentText("beforeend", " on Exchange");
 
-  const bankOffer = createDiv();
+  const bankOffer = document.createElement("div");
   bankOffer.classList.add("bank-offer");
   PriceContainer.appendChild(bankOffer);
 
@@ -160,28 +185,29 @@ productJSON.forEach((product) => {
   bankOfferLink.textContent = product.bankOffersLink.buttonText;
   bankOffer.appendChild(bankOfferLink);
 
-  const CheckBoxes = createDiv();
+  const CheckBoxes = document.createElement("div");
   CheckBoxes.classList.add("check-boxes");
+  // CheckBoxes.style.display = 'block'
   content.appendChild(CheckBoxes);
 
-  const addToCart = createDiv();
+  const addToCart = document.createElement("div");
   addToCart.classList.add("addToCart");
   CheckBoxes.appendChild(addToCart);
 
-  const addToCompare = createDiv();
+  const addToCompare = document.createElement("div");
   addToCompare.classList.add("addToCompare");
   CheckBoxes.appendChild(addToCompare);
 
   // Create checkbox for "Add to Cart"
   const addToCartCheckbox = document.createElement("input");
   addToCartCheckbox.type = "checkbox";
-  addToCartCheckbox.id = "addToCartCheckbox";
+  addToCartCheckbox.id = "addToCartCheckbox"; // Provide a unique ID
   addToCart.appendChild(addToCartCheckbox);
 
   // Create label for "Add to Cart" checkbox
   const addToCartLabel = document.createElement("label");
   addToCartLabel.textContent = "Add to Cart";
-  addToCartLabel.htmlFor = "addToCartCheckbox";
+  addToCartLabel.htmlFor = "addToCartCheckbox"; // Use the same ID as the associated checkbox
   addToCart.appendChild(addToCartLabel);
 
   // Create checkbox for "Add to Compare"
@@ -203,23 +229,26 @@ productJSON.forEach((product) => {
     if (addToCompareCheckbox.checked) {
       compareCount++;
     } else {
-      compareCount = Math.max(0, compareCount - 1); 
+      compareCount = Math.max(0, compareCount - 1); // Ensure compareCount doesn't go negative
     }
     updateCompareCount();
   });
 });
 
-// COMPARE button
+// Create the "COMPARE" button
 const compareBtn = document.createElement("button");
 compareBtn.classList.add("compare-btn");
 containerDiv.appendChild(compareBtn);
 
-compareBtn.textContent = `COMPARE ${0}`;
+compareBtn.textContent = `COMPARE (${0})`;
 
-// product cards
-const productCardsDiv = createDiv();
+// Create a div element for product cards
+const productCardsDiv = document.createElement("div");
 productCardsDiv.classList.add("product-cards");
 
+// Iterate through product data and create cards
+
+// Append the product cards container to the body
 containerDiv.appendChild(productCardsDiv);
 
 const showCompareButton = function () {
@@ -228,9 +257,14 @@ const showCompareButton = function () {
 
 const checkboxes = document.querySelectorAll(".compare-checkbox");
 
-// handle checkbox state change
+// Function to handle checkbox state change
 function handleCheckboxChange(event, index) {
   const checkbox = event.target;
+  console.log(
+    `Checkbox with ID ${checkbox.id} is now ${
+      checkbox.checked ? "checked" : "unchecked"
+    } index is ${index}`
+  );
 
   if (checkbox.checked) {
     selectedData.push({ ...formattedData[index], index });
@@ -239,15 +273,17 @@ function handleCheckboxChange(event, index) {
   }
 
   updateCompareButton();
+
+  console.log(selectedData);
 }
 
-// update the compare button state
+// Function to update the compare button state
 function updateCompareButton() {
   if (selectedData.length > 0) {
     compareBtn.classList.add("show");
     productJSON.forEach((product) => {
       // Create a div element for each product
-      const productCardDiv = createDiv();
+      const productCardDiv = document.createElement("div");
       productCardDiv.classList.add("product-card");
 
       // Add product details to the card
@@ -282,11 +318,11 @@ function handleCheckboxChange(event, index) {
   if (checkbox.checked) {
     selectedData.push({ ...formattedData[index], index });
     // Create a div element for each product card
-    const productCardDiv = createDiv();
+    const productCardDiv = document.createElement("div");
     productCardDiv.classList.add("product-card");
-    productCardDiv.dataset.index = index;
+    productCardDiv.dataset.index = index; 
 
-    // product card details
+    // Add product details to the card
     const title = document.createElement("h6");
     const cardImg = document.createElement("img");
 
@@ -297,6 +333,7 @@ function handleCheckboxChange(event, index) {
     productCardDiv.appendChild(cardImg);
     productCardDiv.appendChild(title);
 
+    // Append the product card to the main container
     productCardsDiv.appendChild(productCardDiv);
   } else {
     selectedData = selectedData.filter((data) => data.index !== index);
@@ -322,4 +359,3 @@ function updateCompareButton() {
 
   compareBtn.textContent = `COMPARE ${selectedData.length}`;
 }
-
