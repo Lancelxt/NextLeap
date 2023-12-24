@@ -193,6 +193,11 @@ font-weight: 400;
   margin-right: 8px;
 }
 
+.addToCompare{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
 
 .footer{
   background: #1A2335;
@@ -278,13 +283,85 @@ margin-right: -200px;
   color: white;
 }
 
+/* Compare button  */
+
+.compare-btn {
+  display: none;
+  font-size: 14px;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  position: fixed;
+  z-index: 2;
+  bottom: 20px;
+  right: 28px;
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  height: 40px;
+  width: 144px;
+  background-color: #2874f0;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2); 
+}
+
+.compare-btn.show{
+  display: block;
+}
+
+/* Show .product-cards on hover */
+/* Hide initially */
+.product-cards {
+  display: flex;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  flex-direction: row;
+  position: fixed;
+  padding-bottom: 40px;
+  right: 20px;
+  bottom: 19px;
+  z-index: 1;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 400;
+  transition: opacity 1s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+/* Show .product-cards on hover */
+.compare-btn:hover + .product-cards {
+  opacity: 1;
+  border: 1px solid rgba(228, 227, 227, 0.603);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .2); 
+
+  max-height: 500px; /* Set a maximum height or adjust as needed */
+  transition-delay: 0.8s;
+}
+
+/* Hide .product-cards after 3 seconds */
+.product-cards:hover {
+  transition-delay: 3s;
+}
+
+.product-card {
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.product-cards img {
+  height: 82px;
+  padding-inline: 40px;
+  padding-bottom: 8px;
+}
 
 
 /* Media Queries for 1366px */
 @media (max-width: 1366px) {
   .header {
     padding: 12px; /* Adjusted for responsiveness */
-    width: 600px;
+    /* width: 600px; */
+    width: 100vw;
     
   }
 
@@ -296,6 +373,10 @@ margin-right: -200px;
     padding: 20px; /* Adjusted for responsiveness */
   }
 }
+
+
+
+
 
 /* Media Queries for 768px */
 @media (max-width: 768px) {
