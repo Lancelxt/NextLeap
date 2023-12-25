@@ -331,11 +331,20 @@ nav {
     width: 100vw;
   }
 
+  nav{
+    padding-block: 0px;
+  }
+
+  .footer{
+    width: 100vw;
+  }
   .footer-main {
-    gap: 10px;
+    gap: 60px;
   }
 
   .footer-bottom {
+    width: 100vw;
+    gap: 60px;
     padding: 20px;
   }
 }
